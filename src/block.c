@@ -20,6 +20,11 @@ struct block* block_new(char* data, char* prevhash)
 	return blk;
 }
 
+void block_print(struct block* b)
+{
+	printf("Data: %s,Time: %lu, Hash: %s\n",b->data, b->timestamp, b->hash);
+}
+
 char* prochash(struct block* blk)
 {
 	

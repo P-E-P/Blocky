@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "block.h"
+#include "blockchain.h"
 
-int main(int argc, char** argv)
+int main(void)
 {
-	return 0;
+	struct blockchain* blocky = blockchain_new();
+
+	blockchain_print(blocky);
 }
