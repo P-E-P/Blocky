@@ -16,6 +16,7 @@ struct block
 
 struct block* block_new(char*, char*);
 char* prochash(struct block*);
+void printhash(unsigned char* hash);
 void mine(struct block*, long);
 void block_print(struct block*);
 #endif

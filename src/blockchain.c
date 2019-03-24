@@ -4,8 +4,6 @@
 #include "utils/exit_status.h"
 #include "blockchain.h"
 
-#define DIFFICULTY 8
-
 struct blockchain* blockchain_new()
 {
 	struct blockchain* bc = malloc(sizeof(struct blockchain));
@@ -16,7 +14,7 @@ struct blockchain* blockchain_new()
 	return bc;
 }
 
-void add(struct blockchain* bc, char* data)
+void blockchain_add(struct blockchain* bc, char* data)
 {
 	if(bc->size == 0) {
 		bc->first = block_new(data, "0");

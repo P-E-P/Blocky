@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS= -Werror -Wall -Wextra -std=c99 -O3 -mtune=native 
 DEBUG_CFLAGS= -Wall -Wextra -Wunused -Wunreachable-code -std=c99 -g3 -O0 -ggdb
 
-LIBS=-lm
+LIBS=-lm -lssl -lcrypto
 BDIR=../build
 DDIR=../debug
 OUT=blocky

@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <openssl/sha.h>
+#include <string.h>
 
 #include "utils/exit_status.h"
 #include "block.h"
@@ -20,14 +22,30 @@ struct block* block_new(char* data, char* prevhash)
 	return blk;
 }
 
-void block_print(struct block* b)
-{
-	printf("Data: %s,Time: %lu, Hash: %s\n",b->data, b->timestamp, b->hash);
+void printhash(unsigned char* hash){
+	for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+		printf("%02x", hash[i]);
+	printf("\n");
 }
 
-char* prochash(struct block* blk)
+void block_print(struct block* b)
 {
-	
+	printf("Data: %s,Time: %lu, Hash: ",b->data, b->timestamp);
+	printhash((unsigned char*)b->hash);
+	printf("\n");
+}
+
+char* prochash(struct block* b)
+{
+	char ibuf[1000];
+	strcpy(ibuf, b->prevhash);
+	strcat(ibuf, ctime(&b->timestamp));
+	char nstr[19];
+	snprintf(nstr, 19, "%d", b->nonce);
+	strcat(ibuf,nstr); 
+	strcat(ibuf, b->data);	
+	unsigned char* ret = SHA256((unsigned char*)ibuf, strlen(ibuf), 0);
+	return (char*)ret;
 }
 
 int chkb(char* hash, long difficulty){
@@ -38,11 +56,12 @@ int chkb(char* hash, long difficulty){
 	return 1;
 }
 
-void mine(struct block* blk, long difficulty)
+void mine(struct block* b, long difficulty)
 {
-	while(chkb(blk->hash, difficulty)) {
-		blk->nonce++;
-		blk->hash = prochash(blk);
+	while(!chkb(b->hash, difficulty)) {
+		b->nonce++;
+		b->hash = prochash(b);
 	}
-	printf("Mined a block: %s", blk->hash);
+	printf("Mined a block, new hash is:");
+	printhash((unsigned char*)b->hash);
 }
