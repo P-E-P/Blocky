@@ -3,7 +3,7 @@
 
 #include "block.h"
 
-#define DIFFICULTY 3
+#define DIFFICULTY 2
 
 struct blockchain {
 
@@ -13,6 +13,8 @@ struct blockchain {
 };
 
 struct blockchain* blockchain_new();
+void blockchain_del(struct blockchain*);
+void blockchain_del_lastb(struct blockchain*);
 void blockchain_add(struct blockchain*, char*);
 int validate(struct blockchain*);
 void blockchain_print(struct blockchain*);
