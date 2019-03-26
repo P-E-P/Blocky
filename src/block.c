@@ -17,6 +17,9 @@ struct block* block_new(char* data, char* prevhash)
 	blk->timestamp = time(0);
 	blk->nonce = 0;
 
+	blk->next = NULL;
+	blk->prev = NULL;
+
 	blk->hash = prochash(blk);
 
 	return blk;

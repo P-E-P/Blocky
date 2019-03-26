@@ -16,7 +16,9 @@ int main(void)
 	blockchain_add(blocky, f2);
 	printf("Mining block 2...\n");
 	mine(blocky->last, DIFFICULTY);
-	//blockchain_print(blocky);
+
+	printf("\n\n");
+	blockchain_print(blocky);
 	
 	printf("Deleting blockchain\n");
 	blockchain_del(blocky);

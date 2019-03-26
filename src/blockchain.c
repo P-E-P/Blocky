@@ -66,7 +66,7 @@ int validate(struct blockchain* bc)
 
 void blockchain_print(struct blockchain* bc)
 {
-	for(struct block* b = bc->first; b->next != NULL; b = b->next) {
+	for(struct block* b = bc->first; b != NULL; b = b->next) {
 		block_print(b);
 	}
 }
